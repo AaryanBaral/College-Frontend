@@ -904,6 +904,7 @@ body {
 }
 #profile-page .profile-container form .image{
   margin-bottom: 3vw;
+  position: relative;
 }
 #profile-page .profile-container form .image .img{
   width: 10vw;
@@ -912,8 +913,31 @@ body {
   overflow: hidden;
 }
 #profile-page .profile-container form .image .img img{
+  object-fit: cover;
   height: 100%;
   width: 100%;
+}
+#profile-page .profile-container form .image .photo-icon{
+  height: 2.5vw;
+  width: 2.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom:0;
+  right:0;
+  background-color: white;
+  opacity: 0.5;
+  transform: translate(-10%,-10%);
+  border-radius: 50%;
+  cursor: pointer;
+}
+#profile-page .profile-container form .image .photo-icon label{
+  cursor: pointer;
+}
+#profile-page .profile-container form .image .photo-icon #image-input{
+  visibility: hidden;
+  display: none;
 }
 #profile-page .profile-container form .textbox{
   width: 50vw;
