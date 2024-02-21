@@ -77,7 +77,7 @@ export default function Profile() {
             </div>
             <div className="textbox">
             <div className="title">Email</div>
-              <input className='input' type="email" name="email" onChange={handleOnChange} value={data.email} readOnly={readOnly} autoComplete="off" />
+              <input className='input' type="email" name="email" onChange={handleOnChange} value={data.email} readOnly={true} autoComplete="off" />
             </div>
             <div className="textbox">
             <div className="title">Address</div>
