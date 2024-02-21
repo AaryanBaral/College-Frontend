@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../component/Providers/UserProvider";
 import baseApi from "../component/utils/baseApi";
 import getToken from "../component/utils/getToken";
 
 export default function Profile() {
+  const { logoutUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const [id,setId] = useState(null);
   const [data, setData] = useState({
     name: null,
@@ -17,6 +21,7 @@ export default function Profile() {
   const [readOnly, setReadOnly] = useState(true);
   const fetchUserInfo = async () => {
     try {
+
       const res = await baseApi.get("/user/individual", {
         headers: { token: getToken() },
       });
@@ -77,23 +82,42 @@ export default function Profile() {
       toast.error("Error Occoured while Updating");
     }
   };
+  const handleDelete = async()=>{
+        if(window.confirm("Do you want to delete your account?") === true){
+          const res = await baseApi.delete("/user",{
+            headers: { token: getToken() },
+          });
+          if(res.status === 200){
+            toast.success("User Deleted Sucessfully");
+            localStorage.removeItem("token");
+            logoutUser();
+            navigate("/",{replace:true});
+          }
+          else{
+            toast.error("Couldn't delete profile");
+          }
+        }
+        else{
+          return ;
+        }
+  }
 
-  const preventDefault = (e) => {
-    e.preventDefault();
-  };
 
   useEffect(() => {
     fetchUserInfo();
   }, [fetchUserInfo]);
+
   return (
     <div id="profile-page">
-      <div className="edit"></div>
       <div className="profile-container">
         <button className="edit" onClick={MakeEditable}>
           Edit Profile
         </button>
+        <button className="delete" onClick={handleDelete}>
+          Delete Profile
+        </button>
         <div className="form-box">
-          <form action="" onSubmit={preventDefault}>
+          <form action="">
             <div className="image">
               <div className="img">
                 <img src={image} alt="" />

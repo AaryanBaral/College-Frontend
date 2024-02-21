@@ -11,6 +11,7 @@ export default function Packages() {
   const { logoutUser } = useContext(UserContext);
 
   const fetchUserInfo = async () => {
+    if (!getToken) navigate("/login",{replace:true});
     const res = await baseApi.get("/user/individual", {
       headers: { token: getToken() },
     });
@@ -20,6 +21,7 @@ export default function Packages() {
     }
   };
   const logout = async () => {
+    console.log(getToken());
     const res = await baseApi.post("/userLogout", {
       headers: { token: getToken() },
     });

@@ -75,6 +75,7 @@ export default function Login() {
           if (res.status === 200) {
             localStorage.setItem("token", res.data.message);
             toast.success("Accout created Successfull");
+            handelOnSignIn();
             navigate("/login");
           }
         } catch (err) {

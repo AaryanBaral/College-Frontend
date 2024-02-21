@@ -15,13 +15,13 @@ export default function UserProvider({children}) {
                 const res = await baseApi.get("/user/individual",{
                     headers: { token: getToken() },
                 })
-                if(res.status===200){
+                if(res.status === 200){
                     navigate("/",{replace:true});
                     setIsUserLoggedIn(()=>true);
                 }
             }catch(err){
                 console.log(err);
-                navigate("/login",{replace:true})
+                navigate("/login",{replace:true});
             }
         }
         fetchData();
